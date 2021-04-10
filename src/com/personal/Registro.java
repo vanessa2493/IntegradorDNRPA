@@ -1,5 +1,6 @@
 package com.personal;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -22,6 +23,10 @@ public class Registro {
     public void registrarAutomotor(Automotor automotor){
         patente="";
         patente=generarPatente();
+        //Verificador de patentes unicas
+        while(patentes.contains(patente)){
+            patente=generarPatente();
+        }
         automotor.setPatente(patente);
         automotores.add(automotor);
         System.out.println("Se agrego el automotor con patente: "+automotor.getPatente());
@@ -49,14 +54,17 @@ public class Registro {
         }else{
             for (Automotor automotor : this.automotores) {
                 String obj=automotor.getClass().getSimpleName();
-                //No esta haciendo bien la comparacion
+
                 if (obj.equals(tipoAutomotor)) {
                     Propietario propietario = automotor.getPropietario();
                     nombrePropietarios.add(propietario.getNombre());
                 }
             }
         }
-        System.out.println(nombrePropietarios);
+        System.out.println("nombre(s) de propietario(s): ");
+        for(String i: nombrePropietarios){
+            System.out.println(i);
+        }
     }
 
     // Listar Tipo de Automotor
@@ -74,17 +82,6 @@ public class Registro {
         return tipoAutomotores;
     }
 
-    // Cambiar propietario de un automotor
-    public void cambiarPropietario(String patente, Propietario nuevoPropietario, LocalDate fechaRegistro) {
-        for (Automotor automotor:this.automotores) {
-            if (automotor.getPatente() == patente) {
-                automotor.setPropietario(nuevoPropietario);
-                automotor.setFechaAltaPropietario(fechaRegistro);
-            }
-            System.out.println("El automotor con patente: "+patente+"ahora es propiedad de: "+automotor.getPropietario().getNombre());
-        }
-    }
-
     // Metodo para ingresar datos de una persona
     Scanner sc = new Scanner(System.in);
     List<String> datos;
@@ -94,7 +91,13 @@ public class Registro {
         String nombre=sc.nextLine();
         datos.add(nombre);
         System.out.println("Ingrese el numero de dni: ");
-        String dni=sc.nextLine();
+        String elDni=sc.nextLine();
+        int dni;
+        try{
+            dni=Integer.parseInt(elDni);
+        } catch (NumberFormatException e){
+            dni=0;
+        }
         datos.add(dni);
         System.out.println("Ingrese la direccion: ");
         String direccion=sc.nextLine();
@@ -197,6 +200,7 @@ public class Registro {
         }
     }
 
+    // metodo para seleccionar un automotor por patente
     public Automotor seleccionarAutomor(){
         System.out.println("Ingrese la patente del automotor que desea cambiar de propietario: ");
         String patente = sc.nextLine();
@@ -210,12 +214,21 @@ public class Registro {
                 }
             }
         }
+
         if (automotor == null){
             System.out.println("La patente no existe en el sistema");
         }
         return automotor;
     }
 
+    // Cambiar propietario de un automotor
+    public void cambiarPropietario(Automotor automotor, String patente, Propietario nuevoPropietario, LocalDate fechaRegistro) {
+        automotor.setPropietario(nuevoPropietario);
+        automotor.setFechaAltaPropietario(fechaRegistro);
+        System.out.println("El automotor con patente: "+patente+" ahora es propiedad de: "+automotor.getPropietario().getNombre());
+    }
+
+    //metodo para registrar un nuevo propietario
     public void registrarNuevoPropietario(){
         Automotor automotor=seleccionarAutomor();
 
@@ -224,28 +237,34 @@ public class Registro {
             String fechaAlta=sc.nextLine();
             String[] fecha=fechaAlta.split("-");
             LocalDate fechaAltaNuevoPropietario= LocalDate.of(Integer.parseInt(fecha[2]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[0]));
-            if (fechaAltaNuevoPropietario.compareTo(automotor.getFechaAltaPropietario())>365){
+            LocalDate fechaAltaPropietario= automotor.getFechaAltaPropietario();
+            long diasDesdeElAltaPropietario = Duration.between(fechaAltaPropietario.atStartOfDay(), fechaAltaNuevoPropietario.atStartOfDay()).toDays();
+
+            if (diasDesdeElAltaPropietario > 365) {
+                String patente=automotor.getPatente();
                 ingresarDatosPersona();
                 Propietario nuevoPropietario = new Propietario(datos.get(0), datos.get(1), datos.get(2));
-                cambiarPropietario(patente, nuevoPropietario, fechaAltaNuevoPropietario);
+                cambiarPropietario(automotor, patente, nuevoPropietario, fechaAltaNuevoPropietario);
             }else{
                 System.out.println("No se puede ingresar un nuevo propietario, la fecha desde el ultimo cambio de propietario debe ser mayor a un año.");
+                System.out.println("La fecha de registro del ultimo propietario es: "+fechaAltaPropietario);
             }
     }
 
+
+    // metodo para consultar si ya paso un año desde el ultimo registro del propietario
     public void consultarHabilitacionCambioPropietario() {
         Automotor automotor = seleccionarAutomor();
 
         if (automotor!=null) {
-            System.out.println("Ingrese la fecha de alta del nuevo propietario (DD-MM-AAAA):");
-            String fechaAlta = sc.nextLine();
-            String[] fecha = fechaAlta.split("-");
-            LocalDate fechaAltaNuevoPropietario = LocalDate.of(Integer.parseInt(fecha[2]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[0]));
-            if (fechaAltaNuevoPropietario.compareTo(automotor.getFechaAltaPropietario()) < 365) {
-                System.out.println("El automotor no puede cambiar de dueño porque ha transcurrido menos de 1 año desde el ultimo cambio");
+            LocalDate hoy = LocalDate.now();
+            LocalDate fechaAltaPropietario= automotor.getFechaAltaPropietario();
+            long diasDesdeElAltaPropietario = Duration.between(fechaAltaPropietario.atStartOfDay(), hoy.atStartOfDay()).toDays();
+            if (diasDesdeElAltaPropietario < 365) {
+                System.out.println("Ha trasncurrido menos de un año desde el ultimo alta de propietario.");
                 System.out.println("La fecha del ultimo cambio fue en: " + automotor.getFechaAltaPropietario());
             } else {
-                System.out.println("Si puede realizar el cambio de propietario, felicitaciones.");
+                System.out.println("La ultima alta de propietario fue en : "+fechaAltaPropietario+", puede hacer el cambio.");
             }
         }
     }

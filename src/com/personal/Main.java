@@ -1,3 +1,5 @@
+//Vanessa Neira
+
 package com.personal;
 
 import java.time.LocalDate;
@@ -10,8 +12,23 @@ public class Main {
         Registro r = new Registro();
 
     // Fecha de Alta
-        LocalDate fechaAltaAutomotor = LocalDate.of(2021, 03, 18);
-        LocalDate fechaAltaNuevoPropietario = LocalDate.of(2021, 03, 18);
+        //Automotor
+        LocalDate fechaAltaAutomotor1 = LocalDate.of(2021, 02, 18);
+        LocalDate fechaAltaAutomotor2 = LocalDate.of(2020, 12, 20);
+        LocalDate fechaAltaAutomotor3 = LocalDate.of(2019, 04, 05);
+        LocalDate fechaAltaAutomotor4 = LocalDate.of(2018, 03, 18);
+        LocalDate fechaAltaAutomotor5 = LocalDate.of(2018, 03, 16);
+        LocalDate fechaAltaAutomotor6 = LocalDate.of(1993, 11, 30);
+
+        //Propietario
+        LocalDate fechaAltaNuevoPropietario1 = LocalDate.of(2020, 03, 18);
+        LocalDate fechaAltaNuevoPropietario2 = LocalDate.of(2020, 04, 18);
+        LocalDate fechaAltaNuevoPropietario3 = LocalDate.of(2021, 05, 18);
+        LocalDate fechaAltaNuevoPropietario4 = LocalDate.of(2021, 06, 18);
+        LocalDate fechaAltaNuevoPropietario5 = LocalDate.of(2019, 10, 18);
+        LocalDate fechaAltaNuevoPropietario6 = LocalDate.of(2019, 12, 18);
+
+
     // Propietarios
         Propietario prop1 = new Propietario("Vanessa Neira", "98765445", "Av Siempre Viva 15");
         Propietario prop2 = new Propietario("Pancho Villa", "89764523", "Av Siempre Viva 16");
@@ -39,13 +56,13 @@ public class Main {
         autorizados2.add(autor5);
 
     // Creacion de automotores
-        MotoElectrica me = new MotoElectrica(NombreSeccional.TIERRA_DEL_FUEGO, prop1, autorizados1, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
-        AutoElectrico ae = new AutoElectrico(NombreSeccional.BUENOS_AIRES, prop2, autorizados2, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
-        Motocicleta  mc = new Motocicleta(NombreSeccional.CORRIENTES, prop3, autorizados1, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
-        Automovil  ac = new Automovil(NombreSeccional.CHACO, prop4, autorizados2, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
-        Colectivo  coc = new Colectivo(NombreSeccional.RIO_NEGRO, prop5, autorizados1, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
-        Utilitario  uc = new Utilitario(NombreSeccional.SALTA, prop6, autorizados2, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
-        Camion  cac = new Camion(NombreSeccional.SAN_JUAN, prop7, autorizados1, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
+        MotoElectrica me = new MotoElectrica(NombreSeccional.TIERRA_DEL_FUEGO, prop1, autorizados1, fechaAltaAutomotor1, NombreUso.PARTICULAR, fechaAltaNuevoPropietario1);
+        AutoElectrico ae = new AutoElectrico(NombreSeccional.BUENOS_AIRES, prop2, autorizados2, fechaAltaAutomotor2, NombreUso.PARTICULAR, fechaAltaNuevoPropietario2);
+        Motocicleta  mc = new Motocicleta(NombreSeccional.CORRIENTES, prop3, autorizados1, fechaAltaAutomotor3, NombreUso.PARTICULAR, fechaAltaNuevoPropietario3);
+        Automovil  ac = new Automovil(NombreSeccional.CHACO, prop4, autorizados2, fechaAltaAutomotor4, NombreUso.PARTICULAR, fechaAltaNuevoPropietario4);
+        Colectivo  coc = new Colectivo(NombreSeccional.RIO_NEGRO, prop5, autorizados1, fechaAltaAutomotor5, NombreUso.PARTICULAR, fechaAltaNuevoPropietario5);
+        Utilitario  uc = new Utilitario(NombreSeccional.SALTA, prop6, autorizados2, fechaAltaAutomotor5, NombreUso.PARTICULAR, fechaAltaNuevoPropietario5);
+        Camion  cac = new Camion(NombreSeccional.SAN_JUAN, prop7, autorizados1, fechaAltaAutomotor6, NombreUso.PARTICULAR, fechaAltaNuevoPropietario6);
 
 
     // Metodos

@@ -29,8 +29,12 @@ public abstract class Persona {
         return dni;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setDni(String dni) throws DatosIncorrectosException{
+        if(String.valueOf(dni).length()!=8){
+            throw new DatosIncorrectosException("El DNI debe tener 8 dígitos");
+        }else {
+            this.dni = dni;
+        }
     }
 
     public String getDireccion() {
