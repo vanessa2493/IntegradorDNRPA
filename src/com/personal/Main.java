@@ -79,7 +79,7 @@ public class Main {
         //Menú de opciones
         Scanner sc = new Scanner(System.in);
         int op = 0;
-        System.out.println("Bienvenido al Registros de la Propiedad Automotor");
+        System.out.println("*****Bienvenido al DNRPA*****");
         do{
             System.out.println("Elija una opción: ");
             System.out.println("1. Mostrar automotores registrados");

@@ -30,7 +30,6 @@ public class Registro {
         }
         automotor.setPatente(patente);
         automotores.add(automotor);
-        System.out.println("Se agrego el automotor con patente: "+automotor.getPatente());
     }
 
     //Listar automotores
@@ -201,6 +200,8 @@ public class Registro {
             case 6: Colectivo coc=new Colectivo(seccional, propietario, autorizados, fechaAltaAutomotor, uso, fechaAltaPropietario); registrarAutomotor(coc); break;
             case 7: Utilitario uc=new Utilitario(seccional, propietario, autorizados, fechaAltaAutomotor, uso, fechaAltaPropietario); registrarAutomotor(uc); break;
         }
+        System.out.println("Se agrego el automotor correctamente");
+
     }
 
     // metodo para seleccionar un automotor por patente
