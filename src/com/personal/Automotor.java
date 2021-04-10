@@ -6,25 +6,25 @@ import java.util.List;
 public abstract class Automotor {
     //Atributos
     private String tipo;
-    private Seccional seccional;
+    private NombreSeccional nombreSeccional;
     private Propietario propietario;
     private List<Autorizado> autorizados;
     private LocalDate fechaAltaAutomotor;
     private String patente="";
-    private Uso uso;
+    private NombreUso nombreUso;
     private LocalDate fechaAltaPropietario;
 
     //Constructor
 
-    public Automotor(Seccional seccional, Propietario propietario, List<Autorizado> autorizados,
-                     LocalDate fechaAltaAutomotor, Uso uso,
+    public Automotor(NombreSeccional nombreSeccional, Propietario propietario, List<Autorizado> autorizados,
+                     LocalDate fechaAltaAutomotor, NombreUso nombreUso,
                      LocalDate fechaAltaNuevoPropietario) {
-        this.seccional = seccional;
+        this.nombreSeccional = nombreSeccional;
         this.propietario = propietario;
         this.autorizados = autorizados;
         this.fechaAltaAutomotor = fechaAltaAutomotor;
         this.patente = patente;
-        this.uso = uso;
+        this.nombreUso = nombreUso;
         this.fechaAltaPropietario = fechaAltaNuevoPropietario;
     }
 
@@ -32,12 +32,12 @@ public abstract class Automotor {
     // Getter & Setter
 
 
-    public Seccional getSeccional() {
-        return seccional;
+    public NombreSeccional getSeccional() {
+        return nombreSeccional;
     }
 
-    public void setSeccional(Seccional seccional) {
-        this.seccional = seccional;
+    public void setSeccional(NombreSeccional nombreSeccional) {
+        this.nombreSeccional = nombreSeccional;
     }
 
     public Propietario getPropietario() {
@@ -72,12 +72,12 @@ public abstract class Automotor {
         this.patente = patente;
     }
 
-    public Uso getUso() {
-        return uso;
+    public NombreUso getUso() {
+        return nombreUso;
     }
 
-    public void setUso(Uso uso) {
-        this.uso = uso;
+    public void setUso(NombreUso nombreUso) {
+        this.nombreUso = nombreUso;
     }
 
     public LocalDate getFechaAltaPropietario() {

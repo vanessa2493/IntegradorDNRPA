@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Camion extends Automotor implements VehiculoACombustion{
     String tipo = "Camion";
-    public Camion(Seccional seccional, Propietario propietario, List<Autorizado> autorizados, LocalDate fechaAltaAutomotor, Uso uso, LocalDate fechaAltaPropietario) {
-        super(seccional, propietario, autorizados, fechaAltaAutomotor, uso, fechaAltaPropietario);
+    public Camion(NombreSeccional nombreSeccional, Propietario propietario, List<Autorizado> autorizados, LocalDate fechaAltaAutomotor, NombreUso nombreUso, LocalDate fechaAltaPropietario) {
+        super(nombreSeccional, propietario, autorizados, fechaAltaAutomotor, nombreUso, fechaAltaPropietario);
     }
 }

@@ -1,6 +1,6 @@
 package com.personal;
 
-public enum Uso {
+public enum NombreUso {
     PARTICULAR,
     PARTICULAR_TRANSPORTE_PERSONAS,
     PROFESIONAL_TRANSPORTE_PERSONAS,

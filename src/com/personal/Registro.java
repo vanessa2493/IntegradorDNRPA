@@ -50,7 +50,7 @@ public class Registro {
             for (Automotor automotor : this.automotores) {
                 String obj=automotor.getClass().getSimpleName();
                 //No esta haciendo bien la comparacion
-                if (tipoAutomotor==obj) {
+                if (obj.equals(tipoAutomotor)) {
                     Propietario propietario = automotor.getPropietario();
                     nombrePropietarios.add(propietario.getNombre());
                 }
@@ -76,12 +76,12 @@ public class Registro {
 
     // Cambiar propietario de un automotor
     public void cambiarPropietario(String patente, Propietario nuevoPropietario, LocalDate fechaRegistro) {
-        for (Automotor automotor:automotores) {
+        for (Automotor automotor:this.automotores) {
             if (automotor.getPatente() == patente) {
                 automotor.setPropietario(nuevoPropietario);
                 automotor.setFechaAltaPropietario(fechaRegistro);
             }
-            System.out.println("El automotor con patente: "+patente+"ahora es propiedad de: "+automotor.getPatente());
+            System.out.println("El automotor con patente: "+patente+"ahora es propiedad de: "+automotor.getPropietario().getNombre());
         }
     }
 
@@ -134,43 +134,31 @@ public class Registro {
     }
 
     // metodo seleccionar seccional
-    public Object seleccionarSeccional(){
-        List<String> seccionales=new ArrayList<>();
-        List<Object> seccionalesObjects= new ArrayList<>();
-        Object[] possibleValues = Seccional.values();
-        Integer op = null;
-        System.out.println("Seleccione la seccional donde vas a registrar tu automotor");
-        Integer contador=1;
-        for(Object i:possibleValues){
-            seccionalesObjects.add(i);
-            seccionales.add(String.valueOf(i));
-            System.out.println(contador+") "+seccionales.get(contador-1));
-            contador+=1;
+    public NombreSeccional seleccionarSeccional(){
+        NombreSeccional[] possibleValues = NombreSeccional.values();
+        Integer op = 0;
+        System.out.println("Seleccione la seccional donde va a registrar su automotor");
+        for(int i = 0; i<possibleValues.length; i++){
+            System.out.println((i+1)+") "+possibleValues[i].toString());
         }
         System.out.println("Seleccione opción: ");
         op = Integer.parseInt(sc.nextLine());
-        Object seccional = seccionalesObjects.get(op-1);
+        NombreSeccional seccional = possibleValues[op-1];
         return seccional;
     }
 
     // metodo seleccionar uso del automotor
-    public Object seleccionarUso(){
-        List<String> usos=new ArrayList<>();
-        List<Object> usosObjects= new ArrayList<>();
-        Object[] possibleValues = Uso.values();
-        Integer op = null;
-        System.out.println("Seleccione la seccional donde vas a registrar tu automotor");
-        Integer contador=1;
-        for(Object i:possibleValues){
-            usosObjects.add(i);
-            usos.add(String.valueOf(i));
-            System.out.println(contador+") "+usos.get(contador-1));
-            contador+=1;
+    public NombreUso seleccionarUso(){
+        NombreUso[] possibleValues = NombreUso.values();
+        Integer op = 0;
+        System.out.println("Seleccione el uso que le va a dar al automotor");
+        for(int i = 0; i<possibleValues.length; i++){
+            System.out.println((i+1)+") "+possibleValues[i].toString());
         }
         System.out.println("Seleccione opción: ");
         op = Integer.parseInt(sc.nextLine());
-        Object seccional = usosObjects.get(op-1);
-        return seccional;
+        NombreUso nombreUso = possibleValues[op-1];
+        return nombreUso;
     }
 
     // metodo para agregar un nuevo automotor en el registro
@@ -182,14 +170,12 @@ public class Registro {
         ingresarDatosPersona();
         Propietario propietario = new Propietario(datos.get(0), datos.get(1), datos.get(2));
         agregarAutorizados();
-        Object seccional = seleccionarSeccional();
-        Seccional secc=Seccional.valueOf(seccional.getClass().getSimpleName());
-        Object uso = seleccionarUso();
-        Uso use=Uso.valueOf(uso.getClass().getSimpleName());
+        NombreSeccional seccional = seleccionarSeccional();
+        NombreUso uso = seleccionarUso();
 
         int op = 0;
         do{
-            System.out.println("Desea agregar un autorizado");
+            System.out.println("Que tipo de automotor desea registrar: ");
             System.out.println("1. Auto Electrico");
             System.out.println("2. Moto Electrica");
             System.out.println("3. Automovil");
@@ -198,17 +184,69 @@ public class Registro {
             System.out.println("6. Colectivo");
             System.out.println("7. Utilitario");
             System.out.print("Opción: ");
-            op = Integer.parseInt(sc.nextLine());
-            switch (op) {
-                case 1: AutoElectrico ae=new AutoElectrico(secc, propietario, autorizados, fechaAltaAutomotor, use, fechaAltaPropietario); registrarAutomotor(ae); break;
-                case 2: MotoElectrica me=new MotoElectrica(secc, propietario, autorizados, fechaAltaAutomotor, use, fechaAltaPropietario); registrarAutomotor(me); break;
-                case 3: Automovil ac=new Automovil(secc, propietario, autorizados, fechaAltaAutomotor, use, fechaAltaPropietario); registrarAutomotor(ac); break;
-                case 4: Motocicleta mc=new Motocicleta(secc, propietario, autorizados, fechaAltaAutomotor, use, fechaAltaPropietario); registrarAutomotor(mc); break;
-                case 5: Camion cac=new Camion(secc, propietario, autorizados, fechaAltaAutomotor, use, fechaAltaPropietario); registrarAutomotor(cac); break;
-                case 6: Colectivo coc=new Colectivo(secc, propietario, autorizados, fechaAltaAutomotor, use, fechaAltaPropietario); registrarAutomotor(coc); break;
-                case 7: Utilitario uc=new Utilitario(secc, propietario, autorizados, fechaAltaAutomotor, use, fechaAltaPropietario); registrarAutomotor(uc); break;
-            }
         }while(op!=0);
+        op = Integer.parseInt(sc.nextLine());
+        switch (op) {
+            case 1: AutoElectrico ae=new AutoElectrico(seccional, propietario, autorizados, fechaAltaAutomotor, uso, fechaAltaPropietario); registrarAutomotor(ae); break;
+            case 2: MotoElectrica me=new MotoElectrica(seccional, propietario, autorizados, fechaAltaAutomotor, uso, fechaAltaPropietario); registrarAutomotor(me); break;
+            case 3: Automovil ac=new Automovil(seccional, propietario, autorizados, fechaAltaAutomotor, uso, fechaAltaPropietario); registrarAutomotor(ac); break;
+            case 4: Motocicleta mc=new Motocicleta(seccional, propietario, autorizados, fechaAltaAutomotor, uso, fechaAltaPropietario); registrarAutomotor(mc); break;
+            case 5: Camion cac=new Camion(seccional, propietario, autorizados, fechaAltaAutomotor, uso, fechaAltaPropietario); registrarAutomotor(cac); break;
+            case 6: Colectivo coc=new Colectivo(seccional, propietario, autorizados, fechaAltaAutomotor, uso, fechaAltaPropietario); registrarAutomotor(coc); break;
+            case 7: Utilitario uc=new Utilitario(seccional, propietario, autorizados, fechaAltaAutomotor, uso, fechaAltaPropietario); registrarAutomotor(uc); break;
+        }
     }
 
+    public Automotor seleccionarAutomor(){
+        System.out.println("Ingrese la patente del automotor que desea cambiar de propietario: ");
+        String patente = sc.nextLine();
+        Automotor automotor = null;
+        for (Automotor a:this.automotores) {
+            String patenteAutomotor=a.getPatente();
+            if (patenteAutomotor.equals(patente)) {
+                automotor = a;
+                if(automotor!=null){
+                    break;
+                }
+            }
+        }
+        if (automotor == null){
+            System.out.println("La patente no existe en el sistema");
+        }
+        return automotor;
+    }
+
+    public void registrarNuevoPropietario(){
+        Automotor automotor=seleccionarAutomor();
+
+        if (automotor!=null)
+            System.out.println("Ingrese la fecha de alta del nuevo propietario (DD-MM-AAAA):");
+            String fechaAlta=sc.nextLine();
+            String[] fecha=fechaAlta.split("-");
+            LocalDate fechaAltaNuevoPropietario= LocalDate.of(Integer.parseInt(fecha[2]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[0]));
+            if (fechaAltaNuevoPropietario.compareTo(automotor.getFechaAltaPropietario())>365){
+                ingresarDatosPersona();
+                Propietario nuevoPropietario = new Propietario(datos.get(0), datos.get(1), datos.get(2));
+                cambiarPropietario(patente, nuevoPropietario, fechaAltaNuevoPropietario);
+            }else{
+                System.out.println("No se puede ingresar un nuevo propietario, la fecha desde el ultimo cambio de propietario debe ser mayor a un año.");
+            }
+    }
+
+    public void consultarHabilitacionCambioPropietario() {
+        Automotor automotor = seleccionarAutomor();
+
+        if (automotor!=null) {
+            System.out.println("Ingrese la fecha de alta del nuevo propietario (DD-MM-AAAA):");
+            String fechaAlta = sc.nextLine();
+            String[] fecha = fechaAlta.split("-");
+            LocalDate fechaAltaNuevoPropietario = LocalDate.of(Integer.parseInt(fecha[2]), Integer.parseInt(fecha[1]), Integer.parseInt(fecha[0]));
+            if (fechaAltaNuevoPropietario.compareTo(automotor.getFechaAltaPropietario()) < 365) {
+                System.out.println("El automotor no puede cambiar de dueño porque ha transcurrido menos de 1 año desde el ultimo cambio");
+                System.out.println("La fecha del ultimo cambio fue en: " + automotor.getFechaAltaPropietario());
+            } else {
+                System.out.println("Si puede realizar el cambio de propietario, felicitaciones.");
+            }
+        }
+    }
 }

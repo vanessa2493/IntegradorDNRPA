@@ -39,13 +39,13 @@ public class Main {
         autorizados2.add(autor5);
 
     // Creacion de automotores
-        MotoElectrica me = new MotoElectrica(Seccional.TIERRA_DEL_FUEGO, prop1, autorizados1, fechaAltaAutomotor, Uso.PARTICULAR, fechaAltaNuevoPropietario);
-        AutoElectrico ae = new AutoElectrico(Seccional.BUENOS_AIRES, prop2, autorizados2, fechaAltaAutomotor, Uso.PARTICULAR, fechaAltaNuevoPropietario);
-        Motocicleta  mc = new Motocicleta(Seccional.CORRIENTES, prop3, autorizados1, fechaAltaAutomotor, Uso.PARTICULAR, fechaAltaNuevoPropietario);
-        Automovil  ac = new Automovil(Seccional.CHACO, prop4, autorizados2, fechaAltaAutomotor, Uso.PARTICULAR, fechaAltaNuevoPropietario);
-        Colectivo  coc = new Colectivo(Seccional.RIO_NEGRO, prop5, autorizados1, fechaAltaAutomotor, Uso.PARTICULAR, fechaAltaNuevoPropietario);
-        Utilitario  uc = new Utilitario(Seccional.SALTA, prop6, autorizados2, fechaAltaAutomotor, Uso.PARTICULAR, fechaAltaNuevoPropietario);
-        Camion  cac = new Camion(Seccional.SAN_JUAN, prop7, autorizados1, fechaAltaAutomotor, Uso.PARTICULAR, fechaAltaNuevoPropietario);
+        MotoElectrica me = new MotoElectrica(NombreSeccional.TIERRA_DEL_FUEGO, prop1, autorizados1, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
+        AutoElectrico ae = new AutoElectrico(NombreSeccional.BUENOS_AIRES, prop2, autorizados2, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
+        Motocicleta  mc = new Motocicleta(NombreSeccional.CORRIENTES, prop3, autorizados1, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
+        Automovil  ac = new Automovil(NombreSeccional.CHACO, prop4, autorizados2, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
+        Colectivo  coc = new Colectivo(NombreSeccional.RIO_NEGRO, prop5, autorizados1, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
+        Utilitario  uc = new Utilitario(NombreSeccional.SALTA, prop6, autorizados2, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
+        Camion  cac = new Camion(NombreSeccional.SAN_JUAN, prop7, autorizados1, fechaAltaAutomotor, NombreUso.PARTICULAR, fechaAltaNuevoPropietario);
 
 
     // Metodos
@@ -56,18 +56,6 @@ public class Main {
         r.registrarAutomotor(coc);
         r.registrarAutomotor(uc);
         r.registrarAutomotor(cac);
-
-        r.getAutomotores();
-
-        ae.indicarEnergiaDisponible();
-        me.indicarEnergiaDisponible();
-
-        r.generarPatente();
-        r.listarPropietarios("AutoElectrico");
-        r.listarTipoAutomotor();
-
-        r.cambiarPropietario("VJW550", prop2, LocalDate.of(2021, 03, 28));
-        r.getAutomotores();
 
 
 
@@ -81,6 +69,7 @@ public class Main {
             System.out.println("2. Buscar propietarios");
             System.out.println("3. Agregar nuevo automotor");
             System.out.println("4. Cambiar el propietario de un automotor");
+            System.out.println("5. Comprobar fecha para cambio de propietario");
             System.out.println("0. Salir");
             System.out.print("Opción: ");
             op = Integer.parseInt(sc.nextLine());
@@ -96,11 +85,11 @@ public class Main {
                     r.listarPropietarios(tipo);
                 }break;
                 case 3: r.agregarNuevoAutomotor(); break;
-                case 4: {
-
-                    r.cambiarPropietario();
-                }break;
+                case 4: r.registrarNuevoPropietario(); break;
+                case 5: r.consultarHabilitacionCambioPropietario(); break;
             }
         }while(op!=0);
+
+
     }
 }

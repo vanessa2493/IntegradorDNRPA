@@ -5,8 +5,8 @@ import java.util.List;
 
 public class AutoElectrico extends Automotor implements VehiculoElectrico{
     String tipo = "AutoElectrico";
-    public AutoElectrico(Seccional seccional, Propietario propietario, List<Autorizado> autorizados, LocalDate fechaAltaAutomotor, Uso uso, LocalDate fechaAltaPropietario) {
-        super(seccional, propietario, autorizados, fechaAltaAutomotor, uso, fechaAltaPropietario);
+    public AutoElectrico(NombreSeccional nombreSeccional, Propietario propietario, List<Autorizado> autorizados, LocalDate fechaAltaAutomotor, NombreUso nombreUso, LocalDate fechaAltaPropietario) {
+        super(nombreSeccional, propietario, autorizados, fechaAltaAutomotor, nombreUso, fechaAltaPropietario);
     }
 
 

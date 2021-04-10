@@ -1,6 +1,6 @@
 package com.personal;
 
-public enum Seccional {
+public enum NombreSeccional {
     CABA,
     BUENOS_AIRES,
     CATAMARCA,
