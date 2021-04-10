@@ -1,5 +1,6 @@
 package com.personal;
 
+import javax.management.StringValueExp;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
@@ -94,11 +95,11 @@ public class Registro {
         String elDni=sc.nextLine();
         int dni;
         try{
-            dni=Integer.parseInt(elDni);
+            dni= Integer.parseInt(elDni);
         } catch (NumberFormatException e){
             dni=0;
         }
-        datos.add(dni);
+        datos.add(Integer.toString(dni));
         System.out.println("Ingrese la direccion: ");
         String direccion=sc.nextLine();
         datos.add(direccion);
@@ -120,8 +121,10 @@ public class Registro {
                 case 1: {
                     ingresarDatosPersona();
                     // 0: nombre, 1: dni, 2: direccion
+
                     Autorizado autorizado = new Autorizado(datos.get(0), datos.get(1), datos.get(2));
                     autorizados.add(autorizado);
+
                     break;
                 }
             }
